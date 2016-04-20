@@ -1,5 +1,9 @@
 package main
 
+import (
+	"fmt"
+)
+
 type Bitmap struct {
 	// 保存实际的 bit 数据
 	data []byte
@@ -50,4 +54,23 @@ func (this *Bitmap) GetBit(offset uint32) (uint8, bool) {
 	}
 	return this.data[index] & 0x01 << pos, true
 
+}
+
+func bitmap_test() {
+	var (
+		i    uint32
+		size uint32
+	)
+	size = 512
+	bmap := new(Bitmap)
+	bmap.Init(size)
+	fmt.Println(bmap)
+
+	for i = 0; i < size*6; i++ {
+		bmap.SetBit(uint32(i), 1)
+	}
+
+	fmt.Println(bmap)
+	fmt.Println(bmap.GetBit(size * 5))
+	fmt.Println(bmap.GetBit(size * 7))
 }
